@@ -14,7 +14,8 @@ public:
     void isPasswordPwned(const QString &pwd);
 
 signals:
-    void sendPwnedResult(QString pwned);
+    void sendPwnedNumber(int num);
+    void sendSafePwd();
 
 public slots:
     void processReply(QNetworkReply *reply);
@@ -26,6 +27,7 @@ private:
     QString hash;
 
     const QString HIBP_API = "https://api.pwnedpasswords.com/range/";
+    const int HIBP_REQUEST_SHA_LENGTH = 5;
 };
 
 #endif // HAVEIBEENPWNED_H

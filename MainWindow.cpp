@@ -9,8 +9,8 @@ MainWindow::MainWindow(QWidget *parent) :
 { 
     ui->setupUi(this);
     ui->labelIsPwnd->setVisible(false);
-    ui->labelIsPwnd->setStyleSheet("QLabel { color : red; }");
-    connect(&hibp, &HaveIBeenPwned::sendPwnedResult, this, &MainWindow::processReply);
+    connect(&hibp, &HaveIBeenPwned::sendPwnedNumber, this, &MainWindow::processPwnedPwd);
+    connect(&hibp, &HaveIBeenPwned::sendSafePwd, this, &MainWindow::processSafePwd);
 }
 
 MainWindow::~MainWindow()
@@ -23,8 +23,16 @@ void MainWindow::on_pbIsPwnd_clicked()
     hibp.isPasswordPwned(ui->lineEditPwd->text());
 }
 
-void MainWindow::processReply(QString pwned)
+void MainWindow::processPwnedPwd(int num)
 {
     ui->labelIsPwnd->setVisible(true);
-    ui->labelIsPwnd->setText(pwned);
+    ui->labelIsPwnd->setStyleSheet("QLabel { color : red; }");
+    ui->labelIsPwnd->setText("Password has been pwned " + QString::number(num) + " times before!");
+}
+
+void MainWindow::processSafePwd()
+{
+    ui->labelIsPwnd->setVisible(true);
+    ui->labelIsPwnd->setStyleSheet("QLabel { color : green; }");
+    ui->labelIsPwnd->setText("Password is safe");
 }

@@ -19,7 +19,8 @@ public:
 
 private slots:
     void on_pbIsPwnd_clicked();
-    void processReply(QString pwned);
+    void processPwnedPwd(int num);
+    void processSafePwd();
 
 private:
     Ui::MainWindow *ui;
